@@ -23,6 +23,7 @@ import TradingConsole from './pages/TradingConsole';
 import RadarHub from './pages/RadarHub';
 import ReportsHub from './pages/ReportsHub';
 import SimulatorPage from './pages/SimulatorPage';
+import AITrader from './pages/AITrader';
 import Layout from './Layout.jsx';
 
 
@@ -52,6 +53,7 @@ export const PAGES = {
     "RadarHub": RadarHub,
     "ReportsHub": ReportsHub,
     "SimulatorPage": SimulatorPage,
+    "AITrader": AITrader,
 }
 
 export const pagesConfig = {

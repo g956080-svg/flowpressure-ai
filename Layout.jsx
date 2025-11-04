@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "./utils";
 import { Button } from "@/components/ui/button";
-import { Activity, BarChart, Radio, Shield, Globe, Menu, X, Target, Gauge, Settings } from "lucide-react";
+import { Activity, BarChart, Radio, Shield, Globe, Menu, X, Target, Gauge, Settings, Bot } from "lucide-react";
 import AlertManager from "@/components/alerts/AlertManager";
 
 // 建立語言 Context
@@ -112,6 +112,7 @@ export default function Layout({ children }) {
 
   const navItems = [
     { name: t.dashboard, path: createPageUrl("Dashboard"), icon: Activity },
+    { name: language === "zh-TW" ? "AI 交易" : "AI Trader", path: createPageUrl("AITrader"), icon: Bot },
     { name: t.tradingConsole, path: createPageUrl("TradingConsole"), icon: Gauge },
     { name: t.radarHub, path: createPageUrl("RadarHub"), icon: Radio },
     { name: t.reportsHub, path: createPageUrl("ReportsHub"), icon: BarChart },
