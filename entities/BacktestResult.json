@@ -1,0 +1,155 @@
+{
+  "name": "BacktestResult",
+  "type": "object",
+  "properties": {
+    "strategy_id": {
+      "type": "string",
+      "description": "\u95dc\u806f\u7b56\u7565 ID"
+    },
+    "strategy_name": {
+      "type": "string",
+      "description": "\u7b56\u7565\u540d\u7a31"
+    },
+    "backtest_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u56de\u6e2c\u6642\u9593"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u56de\u6e2c\u958b\u59cb\u65e5\u671f"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u56de\u6e2c\u7d50\u675f\u65e5\u671f"
+    },
+    "initial_capital": {
+      "type": "number",
+      "default": 10000,
+      "description": "\u521d\u59cb\u8cc7\u91d1"
+    },
+    "final_capital": {
+      "type": "number",
+      "description": "\u6700\u7d42\u8cc7\u91d1"
+    },
+    "total_return": {
+      "type": "number",
+      "description": "\u7e3d\u56de\u5831 %"
+    },
+    "total_trades": {
+      "type": "number",
+      "description": "\u7e3d\u4ea4\u6613\u6578"
+    },
+    "winning_trades": {
+      "type": "number",
+      "description": "\u7372\u5229\u4ea4\u6613\u6578"
+    },
+    "losing_trades": {
+      "type": "number",
+      "description": "\u8667\u640d\u4ea4\u6613\u6578"
+    },
+    "win_rate": {
+      "type": "number",
+      "description": "\u52dd\u7387 %"
+    },
+    "avg_win": {
+      "type": "number",
+      "description": "\u5e73\u5747\u7372\u5229 %"
+    },
+    "avg_loss": {
+      "type": "number",
+      "description": "\u5e73\u5747\u8667\u640d %"
+    },
+    "largest_win": {
+      "type": "number",
+      "description": "\u6700\u5927\u7372\u5229 %"
+    },
+    "largest_loss": {
+      "type": "number",
+      "description": "\u6700\u5927\u8667\u640d %"
+    },
+    "profit_factor": {
+      "type": "number",
+      "description": "\u7372\u5229\u56e0\u5b50"
+    },
+    "sharpe_ratio": {
+      "type": "number",
+      "description": "\u590f\u666e\u6bd4\u7387"
+    },
+    "max_drawdown": {
+      "type": "number",
+      "description": "\u6700\u5927\u56de\u64a4 %"
+    },
+    "max_drawdown_duration": {
+      "type": "number",
+      "description": "\u6700\u5927\u56de\u64a4\u6301\u7e8c\u6642\u9593\uff08\u5929\uff09"
+    },
+    "recovery_factor": {
+      "type": "number",
+      "description": "\u6062\u5fa9\u56e0\u5b50"
+    },
+    "consecutive_wins_max": {
+      "type": "number",
+      "description": "\u6700\u5927\u9023\u52dd\u6b21\u6578"
+    },
+    "consecutive_losses_max": {
+      "type": "number",
+      "description": "\u6700\u5927\u9023\u6557\u6b21\u6578"
+    },
+    "avg_trade_duration": {
+      "type": "number",
+      "description": "\u5e73\u5747\u6301\u5009\u6642\u9593\uff08\u5206\u9418\uff09"
+    },
+    "equity_curve": {
+      "type": "string",
+      "description": "\u6b0a\u76ca\u66f2\u7dda JSON"
+    },
+    "trade_log": {
+      "type": "string",
+      "description": "\u4ea4\u6613\u8a18\u9304 JSON"
+    },
+    "market_conditions": {
+      "type": "string",
+      "description": "\u5e02\u5834\u689d\u4ef6\u5206\u6790 JSON"
+    },
+    "performance_by_symbol": {
+      "type": "string",
+      "description": "\u6309\u80a1\u7968\u5206\u985e\u7e3e\u6548 JSON"
+    },
+    "monthly_returns": {
+      "type": "string",
+      "description": "\u6708\u5ea6\u56de\u5831 JSON"
+    },
+    "risk_metrics": {
+      "type": "string",
+      "description": "\u98a8\u96aa\u6307\u6a19 JSON"
+    },
+    "ai_evaluation_en": {
+      "type": "string",
+      "description": "AI \u8a55\u4f30\uff08\u82f1\u6587\uff09"
+    },
+    "ai_evaluation_zh": {
+      "type": "string",
+      "description": "AI \u8a55\u4f30\uff08\u4e2d\u6587\uff09"
+    },
+    "optimization_suggestions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u512a\u5316\u5efa\u8b70"
+    },
+    "confidence_score": {
+      "type": "number",
+      "description": "\u4fe1\u5fc3\u5206\u6578 (0-100)"
+    }
+  },
+  "required": [
+    "strategy_id",
+    "strategy_name",
+    "start_date",
+    "end_date"
+  ]
+}

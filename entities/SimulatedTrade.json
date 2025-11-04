@@ -1,0 +1,119 @@
+{
+  "name": "SimulatedTrade",
+  "type": "object",
+  "properties": {
+    "stock_id": {
+      "type": "string",
+      "description": "Reference to Stock entity"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Stock symbol"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Virtual amount invested"
+    },
+    "shares": {
+      "type": "number",
+      "description": "Number of shares purchased"
+    },
+    "entry_price": {
+      "type": "number",
+      "description": "Entry price per share"
+    },
+    "exit_price": {
+      "type": "number",
+      "description": "Exit price per share"
+    },
+    "entry_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Entry timestamp"
+    },
+    "exit_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Exit timestamp"
+    },
+    "entry_flow": {
+      "type": "string",
+      "enum": [
+        "IN",
+        "OUT",
+        "NEUTRAL"
+      ],
+      "description": "Flow signal at entry"
+    },
+    "exit_flow": {
+      "type": "string",
+      "enum": [
+        "IN",
+        "OUT",
+        "NEUTRAL"
+      ],
+      "description": "Flow signal at exit"
+    },
+    "entry_confidence": {
+      "type": "number",
+      "description": "AI confidence at entry"
+    },
+    "exit_confidence": {
+      "type": "number",
+      "description": "AI confidence at exit"
+    },
+    "entry_comment_en": {
+      "type": "string",
+      "description": "AI comment at entry (English)"
+    },
+    "entry_comment_zh": {
+      "type": "string",
+      "description": "AI comment at entry (Traditional Chinese)"
+    },
+    "gain_loss_percent": {
+      "type": "number",
+      "description": "Gain or loss percentage"
+    },
+    "gain_loss_amount": {
+      "type": "number",
+      "description": "Gain or loss in dollars"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "description": "Duration held in minutes"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "CLOSED"
+      ],
+      "default": "ACTIVE",
+      "description": "Trade status"
+    },
+    "ai_evaluation_en": {
+      "type": "string",
+      "description": "AI evaluation of trade performance (English)"
+    },
+    "ai_evaluation_zh": {
+      "type": "string",
+      "description": "AI evaluation of trade performance (Traditional Chinese)"
+    }
+  },
+  "required": [
+    "stock_id",
+    "symbol",
+    "company_name",
+    "amount",
+    "shares",
+    "entry_price",
+    "entry_time",
+    "entry_flow",
+    "entry_confidence",
+    "status"
+  ]
+}

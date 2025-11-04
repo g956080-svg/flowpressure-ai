@@ -1,0 +1,93 @@
+{
+  "name": "SemanticPressure",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "\u80a1\u7968\u4ee3\u865f"
+    },
+    "spi": {
+      "type": "number",
+      "description": "\u8a9e\u7fa9\u58d3\u529b\u6307\u6578 (0-100)"
+    },
+    "sentiment_score": {
+      "type": "number",
+      "description": "\u60c5\u7dd2\u5206\u6578 (-1 to 1)"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "negative",
+        "neutral"
+      ],
+      "description": "\u60c5\u7dd2\u985e\u5225"
+    },
+    "positive_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u5075\u6e2c\u5230\u7684\u6b63\u9762\u95dc\u9375\u5b57"
+    },
+    "negative_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u5075\u6e2c\u5230\u7684\u8ca0\u9762\u95dc\u9375\u5b57"
+    },
+    "top_keyword": {
+      "type": "string",
+      "description": "\u6700\u91cd\u8981\u7684\u95dc\u9375\u5b57"
+    },
+    "news_count": {
+      "type": "number",
+      "description": "\u65b0\u805e\u6578\u91cf"
+    },
+    "social_mentions": {
+      "type": "number",
+      "description": "\u793e\u4ea4\u5a92\u9ad4\u63d0\u53ca\u6b21\u6578"
+    },
+    "ai_suggestion_en": {
+      "type": "string",
+      "description": "AI \u5efa\u8b70\uff08\u82f1\u6587\uff09"
+    },
+    "ai_suggestion_zh": {
+      "type": "string",
+      "description": "AI \u5efa\u8b70\uff08\u4e2d\u6587\uff09"
+    },
+    "alert_triggered": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u662f\u5426\u89f8\u767c\u8b66\u5831"
+    },
+    "spi_change": {
+      "type": "number",
+      "description": "SPI \u8b8a\u5316\uff08\u904e\u53bb10\u5206\u9418\uff09"
+    },
+    "keyword_weights": {
+      "type": "string",
+      "description": "\u95dc\u9375\u5b57\u6b0a\u91cd JSON"
+    },
+    "data_sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u6578\u64da\u4f86\u6e90\u5217\u8868"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u66f4\u65b0\u6642\u9593"
+    }
+  },
+  "required": [
+    "symbol",
+    "spi",
+    "sentiment_score",
+    "sentiment",
+    "timestamp"
+  ]
+}

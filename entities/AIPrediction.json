@@ -1,0 +1,99 @@
+{
+  "name": "AIPrediction",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "\u80a1\u7968\u4ee3\u865f"
+    },
+    "prediction_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "AI \u9810\u6e2c\u6642\u9593"
+    },
+    "predicted_flow": {
+      "type": "string",
+      "enum": [
+        "IN",
+        "OUT",
+        "NEUTRAL"
+      ],
+      "description": "AI \u9810\u6e2c\u7684\u8cc7\u91d1\u6d41\u5411"
+    },
+    "predicted_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "\u9810\u6e2c\u4fe1\u5fc3\u5ea6"
+    },
+    "prediction_reasoning_en": {
+      "type": "string",
+      "description": "\u9810\u6e2c\u7406\u7531\uff08\u82f1\u6587\uff09"
+    },
+    "prediction_reasoning_zh": {
+      "type": "string",
+      "description": "\u9810\u6e2c\u7406\u7531\uff08\u4e2d\u6587\uff09"
+    },
+    "market_temperature": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "\u5e02\u5834\u6eab\u5ea6\u6307\u6a19"
+    },
+    "social_sentiment_score": {
+      "type": "number",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "\u793e\u7fa4\u60c5\u7dd2\u5206\u6578"
+    },
+    "news_sentiment_score": {
+      "type": "number",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "\u65b0\u805e\u60c5\u7dd2\u5206\u6578"
+    },
+    "technical_indicators": {
+      "type": "string",
+      "description": "\u6280\u8853\u6307\u6a19 JSON \u5b57\u4e32"
+    },
+    "actual_flow": {
+      "type": "string",
+      "enum": [
+        "IN",
+        "OUT",
+        "NEUTRAL",
+        "PENDING"
+      ],
+      "description": "\u5be6\u969b\u9a57\u8b49\u7684\u8cc7\u91d1\u6d41\u5411"
+    },
+    "actual_price_change": {
+      "type": "number",
+      "description": "\u5be6\u969b\u50f9\u683c\u8b8a\u5316\u767e\u5206\u6bd4"
+    },
+    "verification_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u9a57\u8b49\u6642\u9593"
+    },
+    "is_accurate": {
+      "type": "boolean",
+      "description": "\u9810\u6e2c\u662f\u5426\u6e96\u78ba"
+    },
+    "accuracy_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "\u6e96\u78ba\u5ea6\u8a55\u5206"
+    },
+    "learning_notes": {
+      "type": "string",
+      "description": "AI \u5b78\u7fd2\u7b46\u8a18"
+    }
+  },
+  "required": [
+    "symbol",
+    "prediction_time",
+    "predicted_flow",
+    "predicted_confidence"
+  ]
+}

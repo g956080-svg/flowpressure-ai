@@ -1,0 +1,183 @@
+{
+  "name": "Stock",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Stock ticker symbol"
+    },
+    "price": {
+      "type": "number",
+      "description": "Current stock price"
+    },
+    "change_percent": {
+      "type": "number",
+      "description": "Price percentage change"
+    },
+    "volume": {
+      "type": "number",
+      "description": "Trading volume"
+    },
+    "market_cap": {
+      "type": "number",
+      "description": "Market capitalization in billions"
+    },
+    "pe_ratio": {
+      "type": "number",
+      "description": "Price to earnings ratio"
+    },
+    "week_52_high": {
+      "type": "number",
+      "description": "52 week high price"
+    },
+    "week_52_low": {
+      "type": "number",
+      "description": "52 week low price"
+    },
+    "day_high": {
+      "type": "number",
+      "description": "Today's high price"
+    },
+    "day_low": {
+      "type": "number",
+      "description": "Today's low price"
+    },
+    "open_price": {
+      "type": "number",
+      "description": "Opening price today"
+    },
+    "previous_close": {
+      "type": "number",
+      "description": "Previous day closing price"
+    },
+    "dividend_yield": {
+      "type": "number",
+      "description": "Dividend yield percentage"
+    },
+    "earnings_date": {
+      "type": "string",
+      "description": "Next earnings announcement date"
+    },
+    "analyst_rating": {
+      "type": "string",
+      "description": "Consensus analyst rating"
+    },
+    "premarket_price": {
+      "type": "number",
+      "description": "Pre-market trading price"
+    },
+    "premarket_change_percent": {
+      "type": "number",
+      "description": "Pre-market % change from previous close"
+    },
+    "premarket_volume": {
+      "type": "number",
+      "description": "Pre-market trading volume"
+    },
+    "premarket_high": {
+      "type": "number",
+      "description": "Pre-market session high"
+    },
+    "premarket_low": {
+      "type": "number",
+      "description": "Pre-market session low"
+    },
+    "is_premarket_active": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether stock has active pre-market trading"
+    },
+    "flow": {
+      "type": "string",
+      "enum": [
+        "IN",
+        "OUT",
+        "NEUTRAL"
+      ],
+      "description": "Money flow direction"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "AI confidence level 0-100"
+    },
+    "ai_signal": {
+      "type": "string",
+      "enum": [
+        "Entry",
+        "Exit",
+        "Observation"
+      ],
+      "description": "AI trading signal"
+    },
+    "ai_comment_en": {
+      "type": "string",
+      "description": "AI comment in English"
+    },
+    "ai_comment_zh": {
+      "type": "string",
+      "description": "AI comment in Traditional Chinese"
+    },
+    "ai_analysis_en": {
+      "type": "string",
+      "description": "Detailed AI analysis in English"
+    },
+    "ai_analysis_zh": {
+      "type": "string",
+      "description": "Detailed AI analysis in Traditional Chinese"
+    },
+    "news_headlines": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Recent news headlines"
+    },
+    "sector_trend": {
+      "type": "string",
+      "description": "Current sector trend analysis"
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "AI",
+        "EV",
+        "Energy",
+        "Finance",
+        "Tech",
+        "Healthcare",
+        "Consumer",
+        "Semiconductor",
+        "Cloud",
+        "Biotech"
+      ],
+      "description": "Stock sector/theme"
+    },
+    "is_watchlist": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether stock is in user's watchlist"
+    },
+    "last_ai_update": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last time AI updated this stock data"
+    }
+  },
+  "required": [
+    "name",
+    "symbol",
+    "price",
+    "flow",
+    "confidence",
+    "ai_signal",
+    "ai_comment_en",
+    "ai_comment_zh",
+    "theme"
+  ]
+}

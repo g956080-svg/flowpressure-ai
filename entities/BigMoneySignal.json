@@ -1,0 +1,83 @@
+{
+  "name": "BigMoneySignal",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "\u80a1\u7968\u4ee3\u865f"
+    },
+    "timestamp_detected": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u8a0a\u865f\u5075\u6e2c\u6642\u9593"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "IN",
+        "OUT",
+        "NONE"
+      ],
+      "description": "\u8a0a\u865f\u985e\u578b\uff1aIN=\u4e3b\u529b\u9032\u5834\uff0cOUT=\u4e3b\u529b\u64a4\u9000\uff0cNONE=\u7121\u660e\u78ba\u52d5\u4f5c"
+    },
+    "intensity_score": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "\u9032\u5834\u5f37\u5ea6\u5206\u6578 (1-5)"
+    },
+    "panic_score": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "\u64a4\u9000\u6050\u614c\u5206\u6578 (1-5)"
+    },
+    "cont_prob": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "\u52d5\u80fd\u5ef6\u7e8c\u6a5f\u7387 (0-100%)"
+    },
+    "rec_action": {
+      "type": "string",
+      "description": "\u884c\u52d5\u5efa\u8b70"
+    },
+    "rec_action_en": {
+      "type": "string",
+      "description": "\u884c\u52d5\u5efa\u8b70 (\u82f1\u6587)"
+    },
+    "debug_notes": {
+      "type": "string",
+      "description": "\u89f8\u767c\u689d\u4ef6\u8207\u9664\u932f\u8cc7\u8a0a"
+    },
+    "algorithm_version": {
+      "type": "string",
+      "default": "BigMoney-AI-v1.0",
+      "description": "\u6f14\u7b97\u6cd5\u7248\u672c"
+    },
+    "input_data": {
+      "type": "string",
+      "description": "\u8f38\u5165\u6578\u64da (JSON\u5b57\u4e32)"
+    },
+    "current_price": {
+      "type": "number",
+      "description": "\u7576\u524d\u50f9\u683c"
+    },
+    "recent_volume": {
+      "type": "number",
+      "description": "\u6700\u8fd1\u6210\u4ea4\u91cf"
+    },
+    "baseline_volume": {
+      "type": "number",
+      "description": "\u57fa\u6e96\u6210\u4ea4\u91cf"
+    }
+  },
+  "required": [
+    "symbol",
+    "timestamp_detected",
+    "signal_type",
+    "cont_prob",
+    "rec_action",
+    "algorithm_version"
+  ]
+}

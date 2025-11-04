@@ -1,0 +1,162 @@
+{
+  "name": "AIStrategy",
+  "type": "object",
+  "properties": {
+    "strategy_name": {
+      "type": "string",
+      "description": "\u7b56\u7565\u540d\u7a31"
+    },
+    "description": {
+      "type": "string",
+      "description": "\u7b56\u7565\u63cf\u8ff0"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u662f\u5426\u555f\u7528"
+    },
+    "risk_tolerance": {
+      "type": "string",
+      "enum": [
+        "CONSERVATIVE",
+        "MODERATE",
+        "AGGRESSIVE"
+      ],
+      "default": "MODERATE",
+      "description": "\u98a8\u96aa\u5bb9\u5fcd\u5ea6"
+    },
+    "max_position_size": {
+      "type": "number",
+      "default": 0.05,
+      "description": "\u6700\u5927\u55ae\u6b21\u5009\u4f4d\u6bd4\u4f8b"
+    },
+    "max_daily_loss": {
+      "type": "number",
+      "default": -5,
+      "description": "\u6bcf\u65e5\u6700\u5927\u8667\u640d %"
+    },
+    "max_drawdown": {
+      "type": "number",
+      "default": -10,
+      "description": "\u6700\u5927\u56de\u64a4 %"
+    },
+    "volatility_threshold": {
+      "type": "number",
+      "default": 2.5,
+      "description": "\u6ce2\u52d5\u7387\u95be\u503c %"
+    },
+    "trend_strength_min": {
+      "type": "number",
+      "default": 60,
+      "description": "\u6700\u5c0f\u8da8\u52e2\u5f37\u5ea6 (0-100)"
+    },
+    "volume_multiplier": {
+      "type": "number",
+      "default": 1.5,
+      "description": "\u6210\u4ea4\u91cf\u500d\u6578"
+    },
+    "entry_confidence_min": {
+      "type": "number",
+      "default": 70,
+      "description": "\u6700\u5c0f\u9032\u5834\u4fe1\u5fc3\u5ea6 %"
+    },
+    "profit_target": {
+      "type": "number",
+      "default": 3.5,
+      "description": "\u7372\u5229\u76ee\u6a19 %"
+    },
+    "stop_loss": {
+      "type": "number",
+      "default": -1.8,
+      "description": "\u505c\u640d %"
+    },
+    "trailing_stop": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u555f\u7528\u79fb\u52d5\u6b62\u640d"
+    },
+    "trailing_stop_distance": {
+      "type": "number",
+      "default": 1.5,
+      "description": "\u79fb\u52d5\u6b62\u640d\u8ddd\u96e2 %"
+    },
+    "market_condition_filter": {
+      "type": "string",
+      "enum": [
+        "BULL",
+        "BEAR",
+        "SIDEWAYS",
+        "ALL"
+      ],
+      "default": "ALL",
+      "description": "\u5e02\u5834\u689d\u4ef6\u904e\u6ffe"
+    },
+    "time_filter_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u555f\u7528\u6642\u9593\u904e\u6ffe"
+    },
+    "time_filter_start": {
+      "type": "string",
+      "description": "\u958b\u59cb\u4ea4\u6613\u6642\u9593 HH:MM"
+    },
+    "time_filter_end": {
+      "type": "string",
+      "description": "\u7d50\u675f\u4ea4\u6613\u6642\u9593 HH:MM"
+    },
+    "dynamic_adjustment": {
+      "type": "boolean",
+      "default": true,
+      "description": "\u555f\u7528\u52d5\u614b\u8abf\u6574"
+    },
+    "adaptation_speed": {
+      "type": "string",
+      "enum": [
+        "SLOW",
+        "MEDIUM",
+        "FAST"
+      ],
+      "default": "MEDIUM",
+      "description": "\u9069\u61c9\u901f\u5ea6"
+    },
+    "performance_score": {
+      "type": "number",
+      "default": 0,
+      "description": "\u7b56\u7565\u7e3e\u6548\u8a55\u5206"
+    },
+    "total_trades": {
+      "type": "number",
+      "default": 0,
+      "description": "\u7e3d\u4ea4\u6613\u6578"
+    },
+    "win_rate": {
+      "type": "number",
+      "default": 0,
+      "description": "\u52dd\u7387 %"
+    },
+    "sharpe_ratio": {
+      "type": "number",
+      "default": 0,
+      "description": "\u590f\u666e\u6bd4\u7387"
+    },
+    "max_consecutive_losses": {
+      "type": "number",
+      "default": 3,
+      "description": "\u6700\u5927\u9023\u7e8c\u8667\u640d\u6b21\u6578"
+    },
+    "cool_down_period": {
+      "type": "number",
+      "default": 300,
+      "description": "\u51b7\u537b\u671f\uff08\u79d2\uff09"
+    },
+    "last_optimized": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u6700\u5f8c\u512a\u5316\u6642\u9593"
+    }
+  },
+  "required": [
+    "strategy_name",
+    "risk_tolerance"
+  ]
+}

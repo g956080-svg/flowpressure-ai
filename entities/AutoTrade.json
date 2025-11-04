@@ -1,0 +1,103 @@
+{
+  "name": "AutoTrade",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Stock ticker symbol"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "buy_price": {
+      "type": "number",
+      "description": "Entry price per share"
+    },
+    "sell_price": {
+      "type": "number",
+      "description": "Exit price per share"
+    },
+    "shares": {
+      "type": "number",
+      "description": "Number of shares traded"
+    },
+    "total_cost": {
+      "type": "number",
+      "description": "Total cost of position"
+    },
+    "pl_percent": {
+      "type": "number",
+      "description": "Profit/loss percentage"
+    },
+    "pl_amount": {
+      "type": "number",
+      "description": "Profit/loss in dollars"
+    },
+    "entry_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When position was opened"
+    },
+    "exit_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When position was closed"
+    },
+    "entry_reason_en": {
+      "type": "string",
+      "description": "Reason for entry (English)"
+    },
+    "entry_reason_zh": {
+      "type": "string",
+      "description": "Reason for entry (Traditional Chinese)"
+    },
+    "exit_reason_en": {
+      "type": "string",
+      "description": "Reason for exit (English)"
+    },
+    "exit_reason_zh": {
+      "type": "string",
+      "description": "Reason for exit (Traditional Chinese)"
+    },
+    "entry_flow_strength": {
+      "type": "number",
+      "description": "Flow strength at entry (0-100)"
+    },
+    "entry_confidence": {
+      "type": "number",
+      "description": "AI confidence at entry (%)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "CLOSED"
+      ],
+      "default": "OPEN",
+      "description": "Trade status"
+    },
+    "trade_type": {
+      "type": "string",
+      "enum": [
+        "WIN",
+        "LOSS",
+        "BREAKEVEN"
+      ],
+      "description": "Trade outcome type"
+    }
+  },
+  "required": [
+    "symbol",
+    "company_name",
+    "buy_price",
+    "shares",
+    "total_cost",
+    "entry_time",
+    "entry_reason_en",
+    "entry_reason_zh",
+    "entry_flow_strength",
+    "entry_confidence",
+    "status"
+  ]
+}

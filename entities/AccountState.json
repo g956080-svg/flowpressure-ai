@@ -1,0 +1,40 @@
+{
+  "name": "AccountState",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "\u7528\u6236ID\uff08\u6bcf\u500b\u7528\u6236\u4e00\u500b\u5e33\u6236\uff09"
+    },
+    "cash_balance": {
+      "type": "number",
+      "default": 100000,
+      "description": "\u73fe\u91d1\u9918\u984d"
+    },
+    "equity_value": {
+      "type": "number",
+      "default": 0,
+      "description": "\u80a1\u7968\u5e02\u503c"
+    },
+    "total_value": {
+      "type": "number",
+      "default": 100000,
+      "description": "\u7e3d\u8cc7\u7522 (\u73fe\u91d1 + \u5e02\u503c)"
+    },
+    "trading_locked": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u4ea4\u6613\u9396\u5b9a"
+    },
+    "last_update": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u6700\u5f8c\u66f4\u65b0\u6642\u9593"
+    }
+  },
+  "required": [
+    "user_id",
+    "cash_balance",
+    "total_value"
+  ]
+}

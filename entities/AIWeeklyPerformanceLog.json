@@ -1,0 +1,84 @@
+{
+  "name": "AIWeeklyPerformanceLog",
+  "type": "object",
+  "properties": {
+    "week_start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u9031\u8d77\u59cb\u65e5"
+    },
+    "week_end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u9031\u7d50\u675f\u65e5"
+    },
+    "total_signals": {
+      "type": "number",
+      "description": "\u4fe1\u865f\u7e3d\u6578"
+    },
+    "win_signals": {
+      "type": "number",
+      "description": "\u6210\u529f\u7b46\u6578"
+    },
+    "lose_signals": {
+      "type": "number",
+      "description": "\u5931\u6557\u7b46\u6578"
+    },
+    "neutral_signals": {
+      "type": "number",
+      "description": "\u4e2d\u6027\u7b46\u6578"
+    },
+    "weekly_win_rate": {
+      "type": "number",
+      "description": "\u52dd\u7387 %"
+    },
+    "avg_intensity": {
+      "type": "number",
+      "description": "\u5e73\u5747\u5f37\u5ea6"
+    },
+    "avg_confidence": {
+      "type": "number",
+      "description": "\u5e73\u5747 cont_prob"
+    },
+    "best_symbol": {
+      "type": "string",
+      "description": "\u672c\u9031\u6700\u4f73\u80a1\u7968"
+    },
+    "best_symbol_win_rate": {
+      "type": "number",
+      "description": "\u6700\u4f73\u80a1\u7968\u52dd\u7387"
+    },
+    "worst_symbol": {
+      "type": "string",
+      "description": "\u672c\u9031\u6700\u5dee\u80a1\u7968"
+    },
+    "worst_symbol_win_rate": {
+      "type": "number",
+      "description": "\u6700\u5dee\u80a1\u7968\u52dd\u7387"
+    },
+    "learning_note": {
+      "type": "string",
+      "description": "AI \u56de\u994b"
+    },
+    "learning_note_en": {
+      "type": "string",
+      "description": "AI \u56de\u994b (\u82f1\u6587)"
+    },
+    "algorithm_version": {
+      "type": "string",
+      "default": "BigMoney-AI-v1.0",
+      "description": "\u6f14\u7b97\u6cd5\u7248\u672c"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u5275\u5efa\u6642\u9593"
+    }
+  },
+  "required": [
+    "week_start_date",
+    "week_end_date",
+    "total_signals",
+    "weekly_win_rate"
+  ]
+}

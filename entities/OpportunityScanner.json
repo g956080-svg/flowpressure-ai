@@ -1,0 +1,114 @@
+{
+  "name": "OpportunityScanner",
+  "type": "object",
+  "properties": {
+    "ticker": {
+      "type": "string",
+      "description": "\u80a1\u7968\u4ee3\u865f"
+    },
+    "company": {
+      "type": "string",
+      "description": "\u516c\u53f8\u540d\u7a31"
+    },
+    "keyword": {
+      "type": "string",
+      "description": "\u89f8\u767c\u95dc\u9375\u8a5e"
+    },
+    "keyword_category": {
+      "type": "string",
+      "enum": [
+        "funding",
+        "order",
+        "rd",
+        "risk"
+      ],
+      "description": "\u95dc\u9375\u8a5e\u985e\u5225"
+    },
+    "impact_score": {
+      "type": "number",
+      "description": "\u5f71\u97ff\u5206\u6578 (0-100)"
+    },
+    "source_score": {
+      "type": "number",
+      "description": "\u4f86\u6e90\u53ef\u4fe1\u5ea6\u5206\u6578 (0-30)"
+    },
+    "corroboration_score": {
+      "type": "number",
+      "description": "\u4ea4\u53c9\u9a57\u8b49\u5206\u6578 (0-25)"
+    },
+    "velocity_score": {
+      "type": "number",
+      "description": "\u901f\u5ea6\u5206\u6578 (0-15)"
+    },
+    "entity_precision_score": {
+      "type": "number",
+      "description": "\u5be6\u9ad4\u7cbe\u78ba\u5ea6\u5206\u6578 (0-10)"
+    },
+    "sentiment_score": {
+      "type": "number",
+      "description": "\u60c5\u7dd2\u5206\u6578 (-10 to +10)"
+    },
+    "price_sensitivity_score": {
+      "type": "number",
+      "description": "\u50f9\u683c\u654f\u611f\u5ea6\u5206\u6578 (0-10)"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ],
+      "description": "\u6574\u9ad4\u60c5\u7dd2"
+    },
+    "verification_flag": {
+      "type": "string",
+      "enum": [
+        "verified",
+        "watch",
+        "likely_false"
+      ],
+      "description": "AI \u9a57\u8b49\u6a19\u7ae0"
+    },
+    "sources": {
+      "type": "string",
+      "description": "\u4f86\u6e90\u5217\u8868 JSON"
+    },
+    "source_count": {
+      "type": "number",
+      "description": "\u4f86\u6e90\u6578\u91cf"
+    },
+    "semantic_pressure": {
+      "type": "number",
+      "description": "\u8a9e\u7fa9\u58d3\u529b\u8ca2\u737b (0-30)"
+    },
+    "total_pressure": {
+      "type": "number",
+      "description": "\u6574\u5408\u5f8c\u7e3d\u58d3\u529b"
+    },
+    "alert_triggered": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u662f\u5426\u89f8\u767c\u8b66\u5831"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u904e\u671f\u6642\u9593 (48\u5c0f\u6642\u5f8c)"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u5075\u6e2c\u6642\u9593"
+    }
+  },
+  "required": [
+    "ticker",
+    "company",
+    "keyword",
+    "impact_score",
+    "sentiment",
+    "verification_flag",
+    "timestamp"
+  ]
+}

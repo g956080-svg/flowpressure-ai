@@ -1,0 +1,43 @@
+{
+  "name": "ErrorLog",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u932f\u8aa4\u6642\u9593"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "API",
+        "TRADE",
+        "SYSTEM"
+      ],
+      "description": "\u4f86\u6e90"
+    },
+    "message": {
+      "type": "string",
+      "description": "\u932f\u8aa4\u8a0a\u606f"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "critical"
+      ],
+      "description": "\u56b4\u91cd\u7a0b\u5ea6"
+    },
+    "details": {
+      "type": "string",
+      "description": "\u8a73\u7d30\u8cc7\u8a0a\uff08JSON\u5b57\u4e32\uff09"
+    }
+  },
+  "required": [
+    "timestamp",
+    "source",
+    "message",
+    "severity"
+  ]
+}

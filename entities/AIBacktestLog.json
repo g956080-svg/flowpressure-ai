@@ -1,0 +1,80 @@
+{
+  "name": "AIBacktestLog",
+  "type": "object",
+  "properties": {
+    "signal_id": {
+      "type": "string",
+      "description": "\u95dc\u806f\u7684 BigMoneySignal ID"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "\u80a1\u7968\u4ee3\u865f"
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "IN",
+        "OUT"
+      ],
+      "description": "\u8a0a\u865f\u985e\u578b"
+    },
+    "entry_price": {
+      "type": "number",
+      "description": "\u9032\u5834\u50f9\u683c"
+    },
+    "exit_price": {
+      "type": "number",
+      "description": "\u51fa\u5834\u50f9\u683c"
+    },
+    "result_pct": {
+      "type": "number",
+      "description": "\u5831\u916c\u7387 %"
+    },
+    "result_outcome": {
+      "type": "string",
+      "enum": [
+        "WIN",
+        "LOSE",
+        "PENDING"
+      ],
+      "description": "\u7d50\u679c"
+    },
+    "intensity_score": {
+      "type": "number",
+      "description": "\u8a0a\u865f\u5f37\u5ea6"
+    },
+    "cont_prob": {
+      "type": "number",
+      "description": "\u5ef6\u7e8c\u6a5f\u7387"
+    },
+    "learn_weight": {
+      "type": "number",
+      "description": "\u5b78\u7fd2\u6b0a\u91cd"
+    },
+    "feedback_notes": {
+      "type": "string",
+      "description": "AI \u56de\u994b"
+    },
+    "entry_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u9032\u5834\u6642\u9593"
+    },
+    "exit_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u51fa\u5834\u6642\u9593"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "description": "\u6301\u7e8c\u6642\u9593\uff08\u5206\u9418\uff09"
+    }
+  },
+  "required": [
+    "signal_id",
+    "symbol",
+    "signal_type",
+    "entry_price",
+    "result_outcome"
+  ]
+}

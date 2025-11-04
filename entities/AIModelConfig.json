@@ -1,0 +1,147 @@
+{
+  "name": "AIModelConfig",
+  "type": "object",
+  "properties": {
+    "model_version": {
+      "type": "string",
+      "default": "v5.0",
+      "description": "AI \u6a21\u578b\u7248\u672c"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u662f\u5426\u555f\u7528\u81ea\u52d5\u4ea4\u6613"
+    },
+    "capital": {
+      "type": "number",
+      "default": 2000,
+      "description": "\u7e3d\u8cc7\u91d1\uff08\u7f8e\u5143\uff09"
+    },
+    "trade_per_signal": {
+      "type": "number",
+      "default": 0.05,
+      "description": "\u6bcf\u500b\u4fe1\u865f\u4f7f\u7528\u8cc7\u91d1\u6bd4\u4f8b\uff085%\uff09"
+    },
+    "hold_time_sec": {
+      "type": "number",
+      "default": 60,
+      "description": "\u5e73\u5747\u6301\u5009\u6642\u9593\uff08\u79d2\uff09"
+    },
+    "fee_rate": {
+      "type": "number",
+      "default": 0.008,
+      "description": "\u624b\u7e8c\u8cbb\u7387\uff080.8%\uff09"
+    },
+    "slippage": {
+      "type": "number",
+      "default": 0.05,
+      "description": "\u6ed1\u50f9\u767e\u5206\u6bd4\uff080.05%\uff09"
+    },
+    "data_delay": {
+      "type": "number",
+      "default": 3,
+      "description": "\u6578\u64da\u5ef6\u9072\uff08\u79d2\uff09"
+    },
+    "mode": {
+      "type": "string",
+      "default": "Full AI Mode",
+      "description": "\u4ea4\u6613\u6a21\u5f0f"
+    },
+    "latency_compensation_sec": {
+      "type": "number",
+      "default": 2.8,
+      "description": "\u5ef6\u9072\u88dc\u511f\u79d2\u6578"
+    },
+    "volume_weight": {
+      "type": "number",
+      "default": 30,
+      "description": "\u6210\u4ea4\u91cf\u6b0a\u91cd %"
+    },
+    "social_sentiment_weight": {
+      "type": "number",
+      "default": 25,
+      "description": "\u793e\u7fa4\u60c5\u7dd2\u6b0a\u91cd %"
+    },
+    "price_momentum_weight": {
+      "type": "number",
+      "default": 25,
+      "description": "\u50f9\u683c\u52d5\u80fd\u6b0a\u91cd %"
+    },
+    "institutional_flow_weight": {
+      "type": "number",
+      "default": 20,
+      "description": "\u4e3b\u529b\u8cc7\u91d1\u6b0a\u91cd %"
+    },
+    "min_confidence_threshold": {
+      "type": "number",
+      "default": 70,
+      "description": "\u6700\u4f4e\u4fe1\u5fc3\u5ea6\u9580\u6abb %"
+    },
+    "profit_target_pct": {
+      "type": "number",
+      "default": 3.5,
+      "description": "\u505c\u5229\u76ee\u6a19 %"
+    },
+    "stop_loss_pct": {
+      "type": "number",
+      "default": -1.8,
+      "description": "\u505c\u640d\u4e0b\u9650 %"
+    },
+    "max_position_size_pct": {
+      "type": "number",
+      "default": 5,
+      "description": "\u55ae\u7b46\u6700\u5927\u5009\u4f4d %"
+    },
+    "last_performance_win_rate": {
+      "type": "number",
+      "default": 0,
+      "description": "\u4e0a\u6b21\u52dd\u7387 %"
+    },
+    "last_performance_return": {
+      "type": "number",
+      "default": 0,
+      "description": "\u4e0a\u6b21\u7e3d\u5831\u916c\u7387 %"
+    },
+    "learning_notes": {
+      "type": "string",
+      "description": "\u5b78\u7fd2\u7d00\u9304"
+    },
+    "model_state": {
+      "type": "string",
+      "enum": [
+        "Optimized",
+        "Learning",
+        "Adjusting",
+        "Stable"
+      ],
+      "default": "Stable",
+      "description": "\u6a21\u578b\u72c0\u614b"
+    },
+    "total_trades_executed": {
+      "type": "number",
+      "default": 0,
+      "description": "\u7d2f\u8a08\u57f7\u884c\u4ea4\u6613\u6578"
+    },
+    "symbols": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "TSLA",
+        "NVDA",
+        "AAPL",
+        "GME",
+        "COIN",
+        "PLTR",
+        "AMD",
+        "BABA",
+        "PYPL"
+      ],
+      "description": "\u4ea4\u6613\u80a1\u7968\u6c60"
+    }
+  },
+  "required": [
+    "model_version"
+  ]
+}

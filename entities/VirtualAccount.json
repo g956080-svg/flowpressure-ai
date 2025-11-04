@@ -1,0 +1,47 @@
+{
+  "name": "VirtualAccount",
+  "type": "object",
+  "properties": {
+    "total_capital": {
+      "type": "number",
+      "default": 10000,
+      "description": "Total virtual capital"
+    },
+    "available_cash": {
+      "type": "number",
+      "default": 10000,
+      "description": "Available cash for trading"
+    },
+    "total_invested": {
+      "type": "number",
+      "default": 0,
+      "description": "Total amount currently invested"
+    },
+    "total_trades": {
+      "type": "number",
+      "default": 0,
+      "description": "Total number of trades"
+    },
+    "winning_trades": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of winning trades"
+    },
+    "losing_trades": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of losing trades"
+    },
+    "total_gain_loss": {
+      "type": "number",
+      "default": 0,
+      "description": "Total gain or loss"
+    },
+    "win_rate": {
+      "type": "number",
+      "default": 0,
+      "description": "Win rate percentage"
+    }
+  },
+  "required": []
+}

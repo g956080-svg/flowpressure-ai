@@ -1,0 +1,64 @@
+{
+  "name": "TradeHistory",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "\u7528\u6236ID"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u4e0b\u55ae\u6642\u9593"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "BUY",
+        "SELL",
+        "REJECTED"
+      ],
+      "description": "\u4ea4\u6613\u52d5\u4f5c"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "\u80a1\u7968\u4ee3\u865f"
+    },
+    "fill_price": {
+      "type": "number",
+      "description": "\u6210\u4ea4\u50f9"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "\u80a1\u6578"
+    },
+    "cash_before": {
+      "type": "number",
+      "description": "\u4e0b\u55ae\u524d\u73fe\u91d1"
+    },
+    "cash_after": {
+      "type": "number",
+      "description": "\u4e0b\u55ae\u5f8c\u73fe\u91d1"
+    },
+    "note": {
+      "type": "string",
+      "description": "\u5099\u8a3b\uff08\u539f\u56e0/\u72c0\u614b\uff09"
+    },
+    "market_session": {
+      "type": "string",
+      "enum": [
+        "PRE",
+        "REG",
+        "POST",
+        "CLOSED"
+      ],
+      "description": "\u5e02\u5834\u6642\u6bb5"
+    }
+  },
+  "required": [
+    "user_id",
+    "timestamp",
+    "action",
+    "symbol"
+  ]
+}

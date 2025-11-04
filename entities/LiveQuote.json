@@ -1,0 +1,73 @@
+{
+  "name": "LiveQuote",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "\u80a1\u7968\u4ee3\u865f"
+    },
+    "last_price": {
+      "type": "number",
+      "description": "\u6700\u5f8c\u6210\u4ea4\u50f9"
+    },
+    "change_pct": {
+      "type": "number",
+      "description": "\u6f32\u8dcc\u5e45%"
+    },
+    "volume": {
+      "type": "number",
+      "description": "\u6210\u4ea4\u91cf"
+    },
+    "premarket_price": {
+      "type": "number",
+      "description": "\u76e4\u524d\u50f9"
+    },
+    "regular_price": {
+      "type": "number",
+      "description": "\u76e4\u4e2d\u50f9"
+    },
+    "prev_close": {
+      "type": "number",
+      "description": "\u6628\u6536\u50f9"
+    },
+    "source_used": {
+      "type": "string",
+      "enum": [
+        "finnhub",
+        "alpha_vantage",
+        "fallback_prev_close"
+      ],
+      "description": "\u6578\u64da\u4f86\u6e90"
+    },
+    "ts_last_update": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u6700\u5f8c\u66f4\u65b0\u6642\u9593"
+    },
+    "error_flag": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u932f\u8aa4\u6a19\u8a18"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "\u932f\u8aa4\u8a0a\u606f"
+    },
+    "market_session": {
+      "type": "string",
+      "enum": [
+        "PRE",
+        "REG",
+        "POST",
+        "CLOSED"
+      ],
+      "description": "\u5e02\u5834\u6642\u6bb5"
+    }
+  },
+  "required": [
+    "symbol",
+    "last_price",
+    "source_used",
+    "ts_last_update"
+  ]
+}

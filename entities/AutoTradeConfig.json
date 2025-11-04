@@ -1,0 +1,72 @@
+{
+  "name": "AutoTradeConfig",
+  "type": "object",
+  "properties": {
+    "is_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether Auto Trade AI is currently active"
+    },
+    "starting_balance": {
+      "type": "number",
+      "default": 10000,
+      "description": "Virtual cash available for AI trading"
+    },
+    "current_balance": {
+      "type": "number",
+      "default": 10000,
+      "description": "Current available virtual cash"
+    },
+    "max_trade_per_stock": {
+      "type": "number",
+      "default": 2000,
+      "description": "Maximum amount to invest in a single stock"
+    },
+    "max_open_positions": {
+      "type": "number",
+      "default": 3,
+      "description": "Maximum number of active positions"
+    },
+    "profit_target_percent": {
+      "type": "number",
+      "default": 5,
+      "description": "Auto-sell profit target percentage"
+    },
+    "stop_loss_percent": {
+      "type": "number",
+      "default": -3,
+      "description": "Auto-sell stop loss percentage"
+    },
+    "scan_frequency_seconds": {
+      "type": "number",
+      "default": 30,
+      "description": "How often AI scans the market"
+    },
+    "protect_when_off": {
+      "type": "boolean",
+      "default": true,
+      "description": "Continue monitoring positions when AI is turned off"
+    },
+    "total_trades_today": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of trades executed today"
+    },
+    "total_pl_today": {
+      "type": "number",
+      "default": 0,
+      "description": "Total profit/loss today in dollars"
+    },
+    "win_rate": {
+      "type": "number",
+      "default": 0,
+      "description": "Win rate percentage"
+    },
+    "has_accepted_disclaimer": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether user has accepted the disclaimer"
+    }
+  },
+  "required": []
+}

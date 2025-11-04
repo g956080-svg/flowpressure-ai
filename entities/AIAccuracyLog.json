@@ -1,0 +1,63 @@
+{
+  "name": "AIAccuracyLog",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u65e5\u671f"
+    },
+    "total_predictions": {
+      "type": "number",
+      "description": "\u7e3d\u9810\u6e2c\u6578"
+    },
+    "accurate_predictions": {
+      "type": "number",
+      "description": "\u6e96\u78ba\u9810\u6e2c\u6578"
+    },
+    "overall_accuracy": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "\u6574\u9ad4\u6e96\u78ba\u7387"
+    },
+    "in_flow_accuracy": {
+      "type": "number",
+      "description": "\u8cc7\u91d1\u6d41\u5165\u9810\u6e2c\u6e96\u78ba\u7387"
+    },
+    "out_flow_accuracy": {
+      "type": "number",
+      "description": "\u8cc7\u91d1\u6d41\u51fa\u9810\u6e2c\u6e96\u78ba\u7387"
+    },
+    "best_performing_symbol": {
+      "type": "string",
+      "description": "\u9810\u6e2c\u6700\u6e96\u7684\u80a1\u7968"
+    },
+    "worst_performing_symbol": {
+      "type": "string",
+      "description": "\u9810\u6e2c\u6700\u5dee\u7684\u80a1\u7968"
+    },
+    "market_condition": {
+      "type": "string",
+      "enum": [
+        "BULL",
+        "BEAR",
+        "SIDEWAYS"
+      ],
+      "description": "\u5e02\u5834\u72c0\u6cc1"
+    },
+    "ai_learning_summary_en": {
+      "type": "string",
+      "description": "AI \u5b78\u7fd2\u7e3d\u7d50\uff08\u82f1\u6587\uff09"
+    },
+    "ai_learning_summary_zh": {
+      "type": "string",
+      "description": "AI \u5b78\u7fd2\u7e3d\u7d50\uff08\u4e2d\u6587\uff09"
+    }
+  },
+  "required": [
+    "date",
+    "total_predictions",
+    "overall_accuracy"
+  ]
+}

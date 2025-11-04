@@ -1,0 +1,108 @@
+{
+  "name": "DailyPerformanceReport",
+  "type": "object",
+  "properties": {
+    "report_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u5831\u544a\u65e5\u671f"
+    },
+    "capital_start": {
+      "type": "number",
+      "description": "\u8d77\u59cb\u8cc7\u91d1"
+    },
+    "capital_end": {
+      "type": "number",
+      "description": "\u6536\u76e4\u8cc7\u91d1"
+    },
+    "total_trades": {
+      "type": "number",
+      "description": "\u4ea4\u6613\u7b46\u6578"
+    },
+    "win_trades": {
+      "type": "number",
+      "description": "\u7372\u5229\u7b46\u6578"
+    },
+    "lose_trades": {
+      "type": "number",
+      "description": "\u8667\u640d\u7b46\u6578"
+    },
+    "win_rate": {
+      "type": "number",
+      "description": "\u52dd\u7387 %"
+    },
+    "avg_return_pct": {
+      "type": "number",
+      "description": "\u5e73\u5747\u55ae\u7b46\u5831\u916c\u7387 %"
+    },
+    "total_return_pct": {
+      "type": "number",
+      "description": "\u7e3d\u5831\u916c\u7387 %"
+    },
+    "profit_usd": {
+      "type": "number",
+      "description": "\u7576\u65e5\u7372\u5229 USD"
+    },
+    "avg_latency": {
+      "type": "number",
+      "description": "\u5e73\u5747\u5ef6\u9072 (\u79d2)"
+    },
+    "best_stock": {
+      "type": "string",
+      "description": "\u6700\u4f73\u80a1\u7968"
+    },
+    "best_stock_return": {
+      "type": "number",
+      "description": "\u6700\u4f73\u80a1\u7968\u5831\u916c\u7387"
+    },
+    "worst_stock": {
+      "type": "string",
+      "description": "\u6700\u5dee\u80a1\u7968"
+    },
+    "worst_stock_return": {
+      "type": "number",
+      "description": "\u6700\u5dee\u80a1\u7968\u5831\u916c\u7387"
+    },
+    "ai_learning_state": {
+      "type": "string",
+      "enum": [
+        "Optimized",
+        "Learning",
+        "Adjusting",
+        "Stable"
+      ],
+      "description": "AI \u5b78\u7fd2\u72c0\u614b"
+    },
+    "ai_suggestion_en": {
+      "type": "string",
+      "description": "AI \u5efa\u8b70 (\u82f1\u6587)"
+    },
+    "ai_suggestion_zh": {
+      "type": "string",
+      "description": "AI \u5efa\u8b70 (\u4e2d\u6587)"
+    },
+    "performance_message_en": {
+      "type": "string",
+      "description": "\u7e3e\u6548\u8a0a\u606f (\u82f1\u6587)"
+    },
+    "performance_message_zh": {
+      "type": "string",
+      "description": "\u7e3e\u6548\u8a0a\u606f (\u4e2d\u6587)"
+    },
+    "trade_details": {
+      "type": "string",
+      "description": "\u4ea4\u6613\u660e\u7d30 JSON"
+    },
+    "high_confidence_win_rate": {
+      "type": "number",
+      "description": "\u9ad8\u4fe1\u5fc3\u52dd\u7387 %"
+    }
+  },
+  "required": [
+    "report_date",
+    "capital_start",
+    "capital_end",
+    "total_trades",
+    "win_rate"
+  ]
+}

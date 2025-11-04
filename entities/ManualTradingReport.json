@@ -1,0 +1,125 @@
+{
+  "name": "ManualTradingReport",
+  "type": "object",
+  "properties": {
+    "report_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u5831\u544a\u65e5\u671f"
+    },
+    "report_type": {
+      "type": "string",
+      "enum": [
+        "DAILY",
+        "WEEKLY"
+      ],
+      "description": "\u5831\u544a\u985e\u578b"
+    },
+    "manual_total_trades": {
+      "type": "number",
+      "description": "\u624b\u52d5\u4ea4\u6613\u7e3d\u6578"
+    },
+    "manual_win_trades": {
+      "type": "number",
+      "description": "\u624b\u52d5\u7372\u5229\u4ea4\u6613\u6578"
+    },
+    "manual_win_rate": {
+      "type": "number",
+      "description": "\u624b\u52d5\u4ea4\u6613\u52dd\u7387 %"
+    },
+    "manual_avg_return": {
+      "type": "number",
+      "description": "\u624b\u52d5\u5e73\u5747\u56de\u5831 %"
+    },
+    "manual_total_pl": {
+      "type": "number",
+      "description": "\u624b\u52d5\u7e3d\u640d\u76ca USD"
+    },
+    "auto_total_trades": {
+      "type": "number",
+      "description": "AI\u4ea4\u6613\u7e3d\u6578"
+    },
+    "auto_win_trades": {
+      "type": "number",
+      "description": "AI\u7372\u5229\u4ea4\u6613\u6578"
+    },
+    "auto_win_rate": {
+      "type": "number",
+      "description": "AI\u4ea4\u6613\u52dd\u7387 %"
+    },
+    "auto_avg_return": {
+      "type": "number",
+      "description": "AI\u5e73\u5747\u56de\u5831 %"
+    },
+    "auto_total_pl": {
+      "type": "number",
+      "description": "AI\u7e3d\u640d\u76ca USD"
+    },
+    "correlation": {
+      "type": "number",
+      "description": "\u624b\u52d5\u8207AI\u4ea4\u6613\u76f8\u95dc\u6027 (0-1)"
+    },
+    "manual_best_stock": {
+      "type": "string",
+      "description": "\u624b\u52d5\u6700\u4f73\u80a1\u7968"
+    },
+    "manual_best_return": {
+      "type": "number",
+      "description": "\u624b\u52d5\u6700\u4f73\u56de\u5831 %"
+    },
+    "manual_worst_stock": {
+      "type": "string",
+      "description": "\u624b\u52d5\u6700\u5dee\u80a1\u7968"
+    },
+    "manual_worst_return": {
+      "type": "number",
+      "description": "\u624b\u52d5\u6700\u5dee\u56de\u5831 %"
+    },
+    "auto_best_stock": {
+      "type": "string",
+      "description": "AI\u6700\u4f73\u80a1\u7968"
+    },
+    "auto_best_return": {
+      "type": "number",
+      "description": "AI\u6700\u4f73\u56de\u5831 %"
+    },
+    "auto_worst_stock": {
+      "type": "string",
+      "description": "AI\u6700\u5dee\u80a1\u7968"
+    },
+    "auto_worst_return": {
+      "type": "number",
+      "description": "AI\u6700\u5dee\u56de\u5831 %"
+    },
+    "ai_commentary_en": {
+      "type": "string",
+      "description": "AI\u8a55\u8ad6 (\u82f1\u6587)"
+    },
+    "ai_commentary_zh": {
+      "type": "string",
+      "description": "AI\u8a55\u8ad6 (\u4e2d\u6587)"
+    },
+    "recommendations_en": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "AI\u5efa\u8b70 (\u82f1\u6587)"
+    },
+    "recommendations_zh": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "AI\u5efa\u8b70 (\u4e2d\u6587)"
+    },
+    "trade_details": {
+      "type": "string",
+      "description": "\u4ea4\u6613\u660e\u7d30 JSON"
+    }
+  },
+  "required": [
+    "report_date",
+    "report_type"
+  ]
+}

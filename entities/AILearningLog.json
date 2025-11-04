@@ -1,0 +1,80 @@
+{
+  "name": "AILearningLog",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u5b78\u7fd2\u6642\u9593"
+    },
+    "total_signals_analyzed": {
+      "type": "number",
+      "description": "\u5206\u6790\u7684\u8a0a\u865f\u7e3d\u6578"
+    },
+    "win_rate_overall": {
+      "type": "number",
+      "description": "\u7e3d\u9ad4\u52dd\u7387 %"
+    },
+    "win_rate_intensity_1": {
+      "type": "number",
+      "description": "\u5f37\u5ea61\u52dd\u7387"
+    },
+    "win_rate_intensity_2": {
+      "type": "number",
+      "description": "\u5f37\u5ea62\u52dd\u7387"
+    },
+    "win_rate_intensity_3": {
+      "type": "number",
+      "description": "\u5f37\u5ea63\u52dd\u7387"
+    },
+    "win_rate_intensity_4": {
+      "type": "number",
+      "description": "\u5f37\u5ea64\u52dd\u7387"
+    },
+    "win_rate_intensity_5": {
+      "type": "number",
+      "description": "\u5f37\u5ea65\u52dd\u7387"
+    },
+    "win_rate_high_conf": {
+      "type": "number",
+      "description": "\u9ad8\u4fe1\u5fc3(cont_prob\u226570)\u52dd\u7387"
+    },
+    "win_rate_medium_conf": {
+      "type": "number",
+      "description": "\u4e2d\u4fe1\u5fc3(50\u2264cont_prob<70)\u52dd\u7387"
+    },
+    "win_rate_low_conf": {
+      "type": "number",
+      "description": "\u4f4e\u4fe1\u5fc3(cont_prob<50)\u52dd\u7387"
+    },
+    "ai_status": {
+      "type": "string",
+      "enum": [
+        "\u5b78\u7fd2\u4e2d",
+        "\u7a69\u5b9a",
+        "\u91cd\u65b0\u6821\u6b63\u4e2d",
+        "\u521d\u59cb\u5316"
+      ],
+      "description": "AI \u72c0\u614b"
+    },
+    "updated_weights": {
+      "type": "string",
+      "description": "\u66f4\u65b0\u7684\u6b0a\u91cd\u53c3\u6578 (JSON)"
+    },
+    "performance_notes": {
+      "type": "string",
+      "description": "\u6548\u80fd\u8a3b\u8a18"
+    },
+    "algorithm_version": {
+      "type": "string",
+      "default": "BigMoney-AI-v1.0",
+      "description": "\u6f14\u7b97\u6cd5\u7248\u672c"
+    }
+  },
+  "required": [
+    "timestamp",
+    "total_signals_analyzed",
+    "win_rate_overall",
+    "ai_status"
+  ]
+}

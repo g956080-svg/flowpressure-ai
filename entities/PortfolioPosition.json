@@ -1,0 +1,45 @@
+{
+  "name": "PortfolioPosition",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "\u7528\u6236ID"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "\u80a1\u7968\u4ee3\u865f"
+    },
+    "avg_cost": {
+      "type": "number",
+      "description": "\u5e73\u5747\u6210\u672c"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "\u6301\u80a1\u6578"
+    },
+    "current_price": {
+      "type": "number",
+      "description": "\u5373\u6642\u50f9\u683c"
+    },
+    "unrealized_pnl": {
+      "type": "number",
+      "description": "\u6d6e\u52d5\u640d\u76ca\u91d1\u984d"
+    },
+    "unrealized_pnl_pct": {
+      "type": "number",
+      "description": "\u6d6e\u52d5\u640d\u76ca\u767e\u5206\u6bd4"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\u66f4\u65b0\u6642\u9593"
+    }
+  },
+  "required": [
+    "user_id",
+    "symbol",
+    "avg_cost",
+    "quantity"
+  ]
+}
