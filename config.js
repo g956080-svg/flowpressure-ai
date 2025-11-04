@@ -1,0 +1,16 @@
+export const CONFIG = {
+  api_source: "mock",
+  refresh_interval_sec: 5,
+  capital: 2000,
+  trade_per_signal: 0.05,
+  fee_rate: 0.008,
+  slippage: 0.05,
+  hold_time_sec: 60,
+  default_symbols: ["TSLA", "NVDA", "AAPL", "AMD", "COIN", "PLTR", "BABA", "PYPL"],
+  finnhub_key: import.meta.env.VITE_FINNHUB_KEY || "",
+  fallback_mode: "mock",
+  entry_threshold: 0.6,
+  exit_threshold: 0.4,
+  take_profit_pct: 0.03,
+  stop_loss_pct: -0.015,
+};
