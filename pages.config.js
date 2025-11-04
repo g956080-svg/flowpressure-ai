@@ -22,6 +22,7 @@ import OpportunityScanner from './pages/OpportunityScanner';
 import TradingConsole from './pages/TradingConsole';
 import RadarHub from './pages/RadarHub';
 import ReportsHub from './pages/ReportsHub';
+import SimulatorPage from './pages/SimulatorPage';
 import Layout from './Layout.jsx';
 
 
@@ -50,6 +51,7 @@ export const PAGES = {
     "TradingConsole": TradingConsole,
     "RadarHub": RadarHub,
     "ReportsHub": ReportsHub,
+    "SimulatorPage": SimulatorPage,
 }
 
 export const pagesConfig = {
