@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -5,11 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
-import { 
-  Play, 
-  Square, 
-  RotateCcw, 
-  Download, 
+import {
+  Play,
+  Square,
+  RotateCcw,
+  Download,
   Scan,
   Bot,
   User,
@@ -29,7 +30,7 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'rec
 
 export default function AITrader() {
   const { t, language } = useI18n();
-  
+
   const {
     isActive,
     mode,
@@ -48,8 +49,12 @@ export default function AITrader() {
     start,
     stop,
     reset,
-    exportToCSV
+    exportToCSV,
+    getSessionHistory
   } = useAutonomousTrader();
+
+  const [showSessionHistory, setShowSessionHistory] = React.useState(false);
+  const sessionHistory = React.useMemo(() => getSessionHistory(), [getSessionHistory]);
 
   // Build equity curve
   const equityCurve = React.useMemo(() => {
@@ -86,7 +91,7 @@ export default function AITrader() {
               {language === 'en' ? '🤖 AI Autonomous Trader' : '🤖 AI 自主交易'}
             </h1>
             <p className="text-gray-400">
-              {language === 'en' 
+              {language === 'en'
                 ? 'v3.0 - Autonomous stock selection and simulation trading'
                 : 'v3.0 - 自主選股與模擬交易系統'}
             </p>
@@ -105,8 +110,8 @@ export default function AITrader() {
 
             <Button
               onClick={isActive ? stop : start}
-              className={isActive 
-                ? 'bg-red-500 hover:bg-red-600' 
+              className={isActive
+                ? 'bg-red-500 hover:bg-red-600'
                 : 'bg-green-500 hover:bg-green-600'}
             >
               {isActive ? (
@@ -193,13 +198,13 @@ export default function AITrader() {
                   ${stats.currentProfit.toFixed(2)}
                 </span>
               </div>
-              
-              <Progress 
-                value={progressToTarget} 
+
+              <Progress
+                value={progressToTarget}
                 className="h-4 bg-[#0d1b2a]"
                 indicatorClassName={progressToTarget >= 100 ? 'bg-[#00ff88]' : 'bg-[#00C6FF]'}
               />
-              
+
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-500">
                   {progressToTarget.toFixed(1)}% {language === 'en' ? 'complete' : '完成'}
@@ -214,6 +219,56 @@ export default function AITrader() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Session History */}
+        {sessionHistory.length > 0 && (
+          <Card className="bg-[#1a2332] border-[#00C6FF]/30">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center justify-between">
+                <span>{language === 'en' ? 'Recent Sessions' : '最近會話'}</span>
+                <Button
+                  onClick={() => setShowSessionHistory(!showSessionHistory)}
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-400"
+                >
+                  {showSessionHistory ? '▼' : '▶'}
+                </Button>
+              </CardTitle>
+            </CardHeader>
+            {showSessionHistory && (
+              <CardContent>
+                <div className="space-y-2">
+                  {sessionHistory.map((session, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between p-3 bg-[#0d1b2a] rounded-lg"
+                    >
+                      <div>
+                        <div className="text-sm font-semibold text-white">
+                          {session.date} • {session.mode === 'auto' ? 'Full Auto' : 'User Mode'}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {session.trades} trades • Win Rate: {session.winRate.toFixed(1)}%
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className={`text-lg font-bold ${
+                          session.totalPnL >= 0 ? 'text-[#00ff88]' : 'text-[#ff4d4d]'
+                        }`}>
+                          {session.totalPnL >= 0 ? '+' : ''}${session.totalPnL.toFixed(2)}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          ${session.startingCapital} → ${session.endingCapital.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            )}
+          </Card>
+        )}
 
         {/* Market Mode */}
         {marketMode && (
@@ -318,6 +373,63 @@ export default function AITrader() {
                 </div>
               </div>
 
+              {/* Heatmap Visualization */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-white mb-3">
+                  {language === 'en' ? '🔥 Opportunity Heatmap' : '🔥 機會熱力圖'}
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                  {scanResults.top10.map((opp, index) => {
+                    const intensity = (opp.score / 10) * 100; // Normalize to 0-100
+                    const bgColor = opp.recommendation === 'LONG'
+                      ? `rgba(0, 255, 136, ${intensity / 100})`
+                      : opp.recommendation === 'SHORT'
+                      ? `rgba(255, 77, 77, ${intensity / 100})`
+                      : `rgba(255, 170, 0, ${intensity / 100})`;
+
+                    return (
+                      <div
+                        key={opp.symbol}
+                        className="relative p-4 rounded-lg border-2 transition-all cursor-pointer"
+                        style={{
+                          backgroundColor: bgColor,
+                          borderColor: selectedStocks.includes(opp.symbol) ? '#00C6FF' : 'transparent'
+                        }}
+                        onClick={() => {
+                          if (mode === 'user' && !isActive) {
+                            setSelectedStocks(prev =>
+                              prev.includes(opp.symbol)
+                                ? prev.filter(s => s !== opp.symbol)
+                                : [...prev, opp.symbol]
+                            );
+                          }
+                        }}
+                      >
+                        <div className="text-xs font-bold text-white mb-1">#{index + 1}</div>
+                        <div className="text-lg font-bold text-white mb-1">{opp.symbol}</div>
+                        <div className="text-sm text-white/90">${opp.price.toFixed(2)}</div>
+                        <div className={`text-xs font-bold ${
+                          opp.changePct >= 0 ? 'text-[#00ff88]' : 'text-[#ff4d4d]'
+                        }`}>
+                          {opp.changePct >= 0 ? '+' : ''}{opp.changePct.toFixed(2)}%
+                        </div>
+                        <div className="mt-2 text-center">
+                          <Badge className="text-xs bg-white/20 text-white">
+                            {opp.confidence.toFixed(0)}%
+                          </Badge>
+                        </div>
+                        {selectedStocks.includes(opp.symbol) && (
+                          <div className="absolute top-2 right-2">
+                            <CheckCircle2 className="w-5 h-5 text-[#00C6FF]" />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Detailed List */}
               <div className="space-y-3">
                 {scanResults.top10.map((opp, index) => (
                   <div
@@ -329,7 +441,7 @@ export default function AITrader() {
                     }`}
                     onClick={() => {
                       if (mode === 'user' && !isActive) {
-                        setSelectedStocks(prev => 
+                        setSelectedStocks(prev =>
                           prev.includes(opp.symbol)
                             ? prev.filter(s => s !== opp.symbol)
                             : [...prev, opp.symbol]
@@ -460,19 +572,19 @@ export default function AITrader() {
             {equityCurve.length > 1 ? (
               <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={equityCurve}>
-                  <XAxis 
-                    dataKey="index" 
+                  <XAxis
+                    dataKey="index"
                     stroke="#666"
                     tick={{ fill: '#999', fontSize: 12 }}
                   />
-                  <YAxis 
+                  <YAxis
                     stroke="#666"
                     tick={{ fill: '#999', fontSize: 12 }}
                     domain={['auto', 'auto']}
                   />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: '#1a2332', 
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#1a2332',
                       border: '1px solid #00C6FF',
                       borderRadius: '8px'
                     }}
@@ -480,10 +592,10 @@ export default function AITrader() {
                     itemStyle={{ color: '#00C6FF' }}
                     formatter={(value) => [`$${value.toFixed(2)}`, 'Equity']}
                   />
-                  <Line 
-                    type="monotone" 
-                    dataKey="equity" 
-                    stroke="#00C6FF" 
+                  <Line
+                    type="monotone"
+                    dataKey="equity"
+                    stroke="#00C6FF"
                     strokeWidth={2}
                     dot={false}
                     activeDot={{ r: 4, fill: '#00ff88' }}
