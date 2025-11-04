@@ -1,0 +1,184 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.7.1';
+
+/**
+ * AI Stock Scanner - Autonomously scans and ranks stocks
+ * Returns top opportunities based on flow, volume, and momentum
+ */
+
+Deno.serve(async (req) => {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { mode = 'scan', universe = 'popular' } = await req.json();
+
+    // Stock universe to scan
+    const stockUniverse = {
+      popular: ['TSLA', 'NVDA', 'AAPL', 'AMD', 'COIN', 'PLTR', 'BABA', 'PYPL', 'GME', 'SOFI', 
+                'MARA', 'RIOT', 'NIO', 'LCID', 'RIVN', 'F', 'INTC', 'MSFT', 'GOOGL', 'AMZN',
+                'META', 'NFLX', 'DIS', 'BA', 'UBER', 'LYFT', 'SHOP', 'SQ', 'ABNB', 'DKNG'],
+      extended: ['SPY', 'QQQ', 'IWM', 'ARKK', 'XLF', 'XLE', 'XLK', 'GLD', 'SLV', 'USO']
+    };
+
+    const symbolsToScan = [...stockUniverse[universe], ...(stockUniverse.extended || [])];
+
+    console.log(`🔍 AI Scanner: Scanning ${symbolsToScan.length} stocks...`);
+
+    // Fetch recent pressure data
+    const allPressure = await base44.asServiceRole.entities.StockPressure.list('-timestamp', 500);
+    const recentPressure = {};
+    
+    allPressure.forEach(record => {
+      if (symbolsToScan.includes(record.symbol)) {
+        if (!recentPressure[record.symbol] || 
+            new Date(record.timestamp) > new Date(recentPressure[record.symbol].timestamp)) {
+          recentPressure[record.symbol] = record;
+        }
+      }
+    });
+
+    // Fetch live quotes
+    const allQuotes = await base44.asServiceRole.entities.LiveQuote.list('-ts_last_update', 100);
+    const quotes = {};
+    allQuotes.forEach(q => {
+      if (symbolsToScan.includes(q.symbol)) {
+        quotes[q.symbol] = q;
+      }
+    });
+
+    // Calculate opportunity scores
+    const opportunities = [];
+
+    for (const symbol of symbolsToScan) {
+      const pressure = recentPressure[symbol];
+      const quote = quotes[symbol];
+
+      if (!pressure || !quote) continue;
+
+      const price = quote.last_price;
+      if (price < 3 || price > 100) continue; // Price filter
+
+      const changePct = quote.change_pct || 0;
+      const volume = quote.volume || 0;
+      
+      // Calculate volume spike (need historical avg - using simple threshold)
+      const volumeSpike = volume > 1000000 ? Math.min(volume / 10000000, 5) : 0;
+      
+      // Calculate flow power
+      const flowPressure = pressure.final_pressure || 50;
+      const flowScore = flowPressure < 40 ? (40 - flowPressure) : 
+                        flowPressure > 70 ? (flowPressure - 70) : 0;
+      
+      // Calculate momentum score
+      const momentumScore = Math.abs(changePct) > 2 ? Math.min(Math.abs(changePct), 10) : 0;
+      
+      // Calculate volatility score (proxy using daily range)
+      const volatilityScore = Math.abs(changePct) > 1.5 ? 5 : 0;
+
+      // Combined opportunity score
+      const opportunityScore = (
+        flowScore * 0.35 +
+        volumeSpike * 0.25 +
+        momentumScore * 0.25 +
+        volatilityScore * 0.15
+      );
+
+      if (opportunityScore > 2) { // Minimum threshold
+        opportunities.push({
+          symbol,
+          score: opportunityScore,
+          price,
+          changePct,
+          volume,
+          flowPressure,
+          flowDirection: flowPressure < 45 ? 'INFLOW' : flowPressure > 70 ? 'OUTFLOW' : 'NEUTRAL',
+          volumeSpike: volumeSpike > 1,
+          momentumStrong: momentumScore > 3,
+          volatilityHigh: volatilityScore > 0,
+          reasons: [
+            volumeSpike > 2 && 'Volume surge detected',
+            flowScore > 3 && `${flowPressure < 45 ? 'Strong inflow' : 'High pressure selloff'} pattern`,
+            momentumScore > 3 && `Strong ${changePct > 0 ? 'upward' : 'downward'} momentum`,
+            volatilityScore > 0 && 'High volatility opportunity'
+          ].filter(Boolean),
+          recommendation: flowPressure < 45 ? 'LONG' : flowPressure > 70 ? 'SHORT' : 'WATCH',
+          confidence: Math.min(opportunityScore * 10, 95),
+          lastUpdate: quote.ts_last_update
+        });
+      }
+    }
+
+    // Sort by score and take top 10
+    opportunities.sort((a, b) => b.score - a.score);
+    const topOpportunities = opportunities.slice(0, 10);
+
+    // Generate AI commentary
+    const commentary = {
+      en: generateCommentary(topOpportunities, 'en'),
+      zh: generateCommentary(topOpportunities, 'zh')
+    };
+
+    return Response.json({
+      success: true,
+      scanned: symbolsToScan.length,
+      found: opportunities.length,
+      top10: topOpportunities,
+      commentary,
+      timestamp: new Date().toISOString(),
+      mode: universe
+    });
+
+  } catch (error) {
+    console.error('AI Scanner error:', error);
+    return Response.json({ 
+      success: false,
+      error: error.message 
+    }, { status: 500 });
+  }
+});
+
+function generateCommentary(opportunities, lang) {
+  if (opportunities.length === 0) {
+    return lang === 'en' 
+      ? 'No significant opportunities detected. Market in consolidation mode.'
+      : '未檢測到顯著機會。市場處於盤整模式。';
+  }
+
+  const top = opportunities[0];
+  const inflowCount = opportunities.filter(o => o.flowDirection === 'INFLOW').length;
+  const outflowCount = opportunities.filter(o => o.flowDirection === 'OUTFLOW').length;
+
+  if (lang === 'en') {
+    let msg = `AI detected ${opportunities.length} opportunities. `;
+    msg += `Top pick: ${top.symbol} (Score: ${top.score.toFixed(1)}, Confidence: ${top.confidence.toFixed(0)}%). `;
+    
+    if (inflowCount > outflowCount) {
+      msg += `Market shows bullish bias with ${inflowCount} inflow signals. `;
+    } else if (outflowCount > inflowCount) {
+      msg += `Bearish pressure detected with ${outflowCount} outflow signals. `;
+    } else {
+      msg += `Mixed signals - neutral market condition. `;
+    }
+    
+    msg += `Recommended action: ${top.recommendation}.`;
+    return msg;
+  } else {
+    let msg = `AI 檢測到 ${opportunities.length} 個機會。`;
+    msg += `首選：${top.symbol}（評分：${top.score.toFixed(1)}，信心度：${top.confidence.toFixed(0)}%）。`;
+    
+    if (inflowCount > outflowCount) {
+      msg += `市場顯示看漲趨勢，有 ${inflowCount} 個流入信號。`;
+    } else if (outflowCount > inflowCount) {
+      msg += `檢測到看跌壓力，有 ${outflowCount} 個流出信號。`;
+    } else {
+      msg += `混合信號 - 市場中性。`;
+    }
+    
+    msg += `建議動作：${top.recommendation === 'LONG' ? '做多' : top.recommendation === 'SHORT' ? '做空' : '觀望'}。`;
+    return msg;
+  }
+}

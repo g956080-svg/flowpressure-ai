@@ -1,0 +1,189 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.7.1';
+
+/**
+ * Market Mode Detector
+ * Analyzes SPY, QQQ, IWM and VIX to determine market condition
+ */
+
+Deno.serve(async (req) => {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const indices = ['SPY', 'QQQ', 'IWM'];
+    
+    // Fetch pressure data for indices
+    const allPressure = await base44.asServiceRole.entities.StockPressure.list('-timestamp', 100);
+    const indexPressure = {};
+    
+    allPressure.forEach(record => {
+      if (indices.includes(record.symbol)) {
+        if (!indexPressure[record.symbol] || 
+            new Date(record.timestamp) > new Date(indexPressure[record.symbol].timestamp)) {
+          indexPressure[record.symbol] = record;
+        }
+      }
+    });
+
+    // Fetch quotes
+    const allQuotes = await base44.asServiceRole.entities.LiveQuote.list('-ts_last_update', 50);
+    const indexQuotes = {};
+    allQuotes.forEach(q => {
+      if (indices.includes(q.symbol)) {
+        indexQuotes[q.symbol] = q;
+      }
+    });
+
+    // Calculate market mode
+    let bullishSignals = 0;
+    let bearishSignals = 0;
+    let sidewaysSignals = 0;
+
+    const analysis = {};
+
+    for (const idx of indices) {
+      const pressure = indexPressure[idx];
+      const quote = indexQuotes[idx];
+
+      if (!pressure || !quote) continue;
+
+      const changePct = quote.change_pct || 0;
+      const flowPressure = pressure.final_pressure || 50;
+
+      // Classify this index
+      if (changePct > 0.5 && flowPressure < 50) {
+        bullishSignals++;
+        analysis[idx] = { mode: 'BULL', changePct, flowPressure };
+      } else if (changePct < -0.5 && flowPressure > 60) {
+        bearishSignals++;
+        analysis[idx] = { mode: 'BEAR', changePct, flowPressure };
+      } else {
+        sidewaysSignals++;
+        analysis[idx] = { mode: 'SIDEWAYS', changePct, flowPressure };
+      }
+    }
+
+    // Determine overall market mode
+    let marketMode = 'SIDEWAYS';
+    let confidence = 0;
+
+    if (bullishSignals >= 2) {
+      marketMode = 'BULL';
+      confidence = (bullishSignals / indices.length) * 100;
+    } else if (bearishSignals >= 2) {
+      marketMode = 'BEAR';
+      confidence = (bearishSignals / indices.length) * 100;
+    } else {
+      confidence = 50;
+    }
+
+    // Check VIX proxy (volatility)
+    const avgVolatility = Object.values(analysis)
+      .map(a => Math.abs(a.changePct))
+      .reduce((sum, v) => sum + v, 0) / Object.keys(analysis).length;
+
+    const volatilityLevel = avgVolatility > 1.5 ? 'HIGH' : avgVolatility > 0.5 ? 'MODERATE' : 'LOW';
+
+    // Sector rotation analysis (simplified)
+    const techSymbols = ['QQQ'];
+    const smallCapSymbols = ['IWM'];
+    
+    let sectorLeader = 'BALANCED';
+    const techPerf = analysis['QQQ']?.changePct || 0;
+    const smallCapPerf = analysis['IWM']?.changePct || 0;
+    
+    if (techPerf > smallCapPerf + 0.3) {
+      sectorLeader = 'TECH';
+    } else if (smallCapPerf > techPerf + 0.3) {
+      sectorLeader = 'SMALL_CAP';
+    }
+
+    // Generate trading recommendations
+    const recommendations = {
+      en: generateRecommendations(marketMode, volatilityLevel, sectorLeader, 'en'),
+      zh: generateRecommendations(marketMode, volatilityLevel, sectorLeader, 'zh')
+    };
+
+    return Response.json({
+      success: true,
+      marketMode,
+      confidence: confidence.toFixed(1),
+      volatilityLevel,
+      sectorLeader,
+      indices: analysis,
+      recommendations,
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error) {
+    console.error('Market Mode Detector error:', error);
+    return Response.json({ 
+      success: false,
+      error: error.message 
+    }, { status: 500 });
+  }
+});
+
+function generateRecommendations(mode, volatility, sector, lang) {
+  if (lang === 'en') {
+    let rec = [];
+    
+    if (mode === 'BULL') {
+      rec.push('Market in bullish mode - favor breakout entries');
+      rec.push('Look for momentum continuation plays');
+      rec.push('Use wider stop-losses to avoid shakeouts');
+    } else if (mode === 'BEAR') {
+      rec.push('Market in bearish mode - favor short/reversal entries');
+      rec.push('Take profits quickly, avoid holding overnight');
+      rec.push('Tight stop-losses recommended');
+    } else {
+      rec.push('Market in sideways mode - favor scalping strategies');
+      rec.push('Quick 30-60 second trades recommended');
+      rec.push('Reduce position sizes due to chop risk');
+    }
+
+    if (volatility === 'HIGH') {
+      rec.push('High volatility detected - reduce position size by 50%');
+    }
+
+    if (sector === 'TECH') {
+      rec.push('Tech sector leading - focus on QQQ components');
+    } else if (sector === 'SMALL_CAP') {
+      rec.push('Small caps outperforming - look for IWM plays');
+    }
+
+    return rec;
+  } else {
+    let rec = [];
+    
+    if (mode === 'BULL') {
+      rec.push('市場處於看漲模式 - 偏好突破進場');
+      rec.push('尋找動能延續交易');
+      rec.push('使用較寬的止損避免震出');
+    } else if (mode === 'BEAR') {
+      rec.push('市場處於看跌模式 - 偏好做空/反轉進場');
+      rec.push('快速獲利了結，避免持倉過夜');
+      rec.push('建議緊縮止損');
+    } else {
+      rec.push('市場處於盤整模式 - 偏好剝頭皮策略');
+      rec.push('建議 30-60 秒快速交易');
+      rec.push('降低倉位以應對震盪風險');
+    }
+
+    if (volatility === 'HIGH') {
+      rec.push('檢測到高波動 - 建議倉位減半');
+    }
+
+    if (sector === 'TECH') {
+      rec.push('科技板塊領漲 - 關注 QQQ 成分股');
+    } else if (sector === 'SMALL_CAP') {
+      rec.push('小盤股表現優異 - 尋找 IWM 機會');
+    }
+
+    return rec;
+  }
+}
